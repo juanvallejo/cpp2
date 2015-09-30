@@ -118,3 +118,22 @@ bool calc_outliers_inliers() {
 
 	return true;
 }
+
+void print_statistics() {
+
+	printf("%s: %d\n", "Total measurements", static_cast<unsigned int>(statistics.totalMeasurements));
+	printf("%s: %17.1f\n", "Mean", statistics.mean);
+	printf("%s: %f\n", "Standard Deviation", statistics.stddev);
+	printf("%s: %d\n", "Number within 1 standard deviation", statistics.totalMeasurements_withinOneStandardDeviation);
+
+	for(std::vector<Measurement>::iterator inlier = inlier_data.begin(); inlier != inlier_data.end(); inlier++) {
+		printf("%d , %d\n", inlier->index, inlier->value);
+	}
+
+	printf("%s: %d\n", "Number outside 1 standard deviation", statistics.totalMeasurements_outsideOneStandardDeviation);
+
+	for(std::vector<Measurement>::iterator outlier = outlier_data.begin(); outlier != outlier_data.end(); outlier++) {
+		printf("%d , %d\n", outlier->index, outlier->value);
+	}
+
+}
