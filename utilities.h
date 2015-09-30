@@ -103,4 +103,10 @@ bool calc_outliers_inliers(void);
  */
 void print_statistics(void);
 
+/**
+ * Sort vector of Measurements
+ */
+bool sort_data_byValue(const Measurement& a, const Measurement& b);
+void sort_data(void);
+
 #endif

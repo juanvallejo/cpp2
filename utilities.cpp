@@ -119,6 +119,14 @@ bool calc_outliers_inliers() {
 	return true;
 }
 
+bool sort_data_byValue(const Measurement& a, const Measurement& b) {
+	return a.value < b.value;
+}
+
+void sort_data() {
+	std::sort(all_data.begin(), all_data.end(), sort_data_byValue);
+}
+
 void print_statistics() {
 
 	printf("%s: %d\n", "Total measurements", static_cast<unsigned int>(statistics.totalMeasurements));

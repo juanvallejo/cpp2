@@ -12,6 +12,8 @@ int main(int argc, char** argv) {
 
 		if(parse_inputFile(filename)) {
 			
+			sort_data();
+
 			if(calc_outliers_inliers()) {
 				print_statistics();
 			} else {
