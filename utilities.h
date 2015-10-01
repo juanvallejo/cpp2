@@ -16,6 +16,7 @@
 #include <vector>
 #include <sstream>
 #include <cmath>
+#include <algorithm>
 
 const std::string INPUT_FILE = "TestData.txt";
 
