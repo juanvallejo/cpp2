@@ -19,4 +19,4 @@ main.o: main.cpp utilities.cpp utilities.h
 	$(CC) $(CFLAGS) main.cpp
 
 clean:
-	if ls *.o 1>/dev/null 2>&1; then rm *.o; fi; if [[ -f $(PROJECT) ]]; then rm $(PROJECT); fi
+	if ls *.o 1>/dev/null 2>&1; then rm *.o; fi; if [[ -f $(PROJECT) ]]; then rm $(PROJECT); fi; if [[ -f Results.txt ]]; then rm Results.txt; fi

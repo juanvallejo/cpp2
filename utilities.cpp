@@ -136,7 +136,7 @@ void sort_data() {
 	std::sort(all_data.begin(), all_data.end(), sort_data_byValue);
 }
 
-// print statistics to a file
+// print statistics to OUTPUT_FILE
 void print_statistics() {
 
 	std::ofstream file(OUTPUT_FILE);
