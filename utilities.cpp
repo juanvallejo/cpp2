@@ -129,10 +129,29 @@ void sort_data() {
 
 void print_statistics() {
 
-	printf("%s: %d\n", "Total measurements", static_cast<unsigned int>(statistics.totalMeasurements));
-	printf("%s: %17.1f\n", "Mean", statistics.mean);
-	printf("%s: %f\n", "Standard Deviation", statistics.stddev);
-	printf("%s: %d\n", "Number within 1 standard deviation", statistics.totalMeasurements_withinOneStandardDeviation);
+	std::ofstream file(OUTPUT_FILE);
+
+	// output total measurement count to file stream
+	std::cout << "Total measurements: " << static_cast<unsigned int>(statistics.totalMeasurements) << std::endl;
+
+	// output mean to file stream
+	std::cout << "Mean: ";
+	std::cout.precision(2);
+	std::cout.width(17);
+	std::cout << statistics.mean << std::endl;
+
+	// output standard deviation to file stream
+	std::cout << "Standard Deviation: ";
+	std::cout.precision(6); 
+	std::cout << statistics.stddev << std::endl;
+
+	// output standard deviation outlier amount
+	std::cout << "Number witihin 1 standard deviation: " << statistics.totalMeasurements_withinOneStandardDeviation << std::endl;
+
+	// printf("%s: %d\n", "Total measurements", static_cast<unsigned int>(statistics.totalMeasurements));
+	// printf("%s: %17.1f\n", "Mean", statistics.mean);
+	// printf("%s: %f\n", "Standard Deviation", statistics.stddev);
+	// printf("%s: %d\n", "Number within 1 standard deviation", statistics.totalMeasurements_withinOneStandardDeviation);
 
 	for(std::vector<Measurement>::iterator inlier = inlier_data.begin(); inlier != inlier_data.end(); inlier++) {
 		printf("%d , %d\n", inlier->index, inlier->value);
