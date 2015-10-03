@@ -5,6 +5,7 @@
  * Project3 - reads a file "testData.txt" consisting of 
  * measurement numbers and values. Calculates mean, variance,
  * and standard deviation for each value.
+ * Results are printed to the OUTPUT_FILE 'Results.txt'
  *
  * Notes: Only iterators are used to access content in vectors.
  *
@@ -19,6 +20,7 @@
 #include <algorithm>
 
 const std::string INPUT_FILE = "TestData.txt";
+const std::string OUTPUT_FILE = "Results.txt";
 
 /**
  * Holds each measurement index-value pair
@@ -29,8 +31,8 @@ struct Measurement {
 	int value;
 
 	void clear() {
-		index = -1;
-		value = -1;
+		index = 0;
+		value = 0;
 	}
 
 };
@@ -100,7 +102,7 @@ double stddev(void);
 bool calc_outliers_inliers(void);
 
 /**
- * Prints formatted output to stdout
+ * Prints formatted output to OUTPUT_FILE
  */
 void print_statistics(void);
 
