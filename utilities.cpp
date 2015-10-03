@@ -13,6 +13,7 @@ std::vector<Measurement> inlier_data;
 // statistical analysis
 Statistics statistics;
 
+// determine if the default input file exists
 bool read_inputFile(std::string& filename) {
 
 	std::ifstream file(filename);
@@ -36,7 +37,8 @@ bool parse_inputFile(std::string& filename) {
 	std::ifstream file(filename);
 	std::string line;
 
-
+	// read file line by line, split each line by comma
+	// convert each comma separated value to integer
 	while(std::getline(file, line)) {
 		std::vector<std::string> data = str_split(line, ',');
 		std::string::size_type sz;
@@ -57,6 +59,9 @@ bool parse_inputFile(std::string& filename) {
 	return true;
 }
 
+// receives a string and a delimiter to split the string by.
+// if the string is able to be split, each value is returned
+// enclosed in a vector of strings
 std::vector<std::string> str_split(std::string& string, const char delim) {
 
 	std::vector<std::string> result;
@@ -71,6 +76,7 @@ std::vector<std::string> str_split(std::string& string, const char delim) {
 	return result;
 }
 
+// assumes statistics.totalMeasurements has been calculated
 double calc_variance() {
 
 	if(statistics.totalMeasurements == 0 || !statistics.totalMeasurements) {
@@ -86,10 +92,13 @@ double calc_variance() {
 	return squared_meanDifferenceSum / statistics.totalMeasurements;
 }
 
+// returns the square root of calc_variance()
 double stddev() {
 	return std::sqrt(calc_variance());
 }
 
+// determine which numbers on the list of all_data are outside one standard of deviation
+// and which ones fall within
 bool calc_outliers_inliers() {
 
 	if(statistics.totalMeasurements == 0 || !statistics.totalMeasurements) {
@@ -127,35 +136,36 @@ void sort_data() {
 	std::sort(all_data.begin(), all_data.end(), sort_data_byValue);
 }
 
+// print statistics to a file
 void print_statistics() {
 
 	std::ofstream file(OUTPUT_FILE);
 
 	// output total measurement count to file stream
-	std::cout << "Total measurements: " << static_cast<unsigned int>(statistics.totalMeasurements) << std::endl;
+	file << "Total measurements: " << static_cast<unsigned int>(statistics.totalMeasurements) << std::endl;
 
 	// output mean to file stream
-	std::cout << "Mean: ";
-	std::cout.precision(2);
-	std::cout.width(17);
-	std::cout << statistics.mean << std::endl;
+	file << "Mean: ";
+	file.precision(2);
+	file.width(17);
+	file << statistics.mean << std::endl;
 
 	// output standard deviation to file stream
-	std::cout << "Standard Deviation: ";
-	std::cout.precision(6); 
-	std::cout << statistics.stddev << std::endl;
+	file << "Standard Deviation: ";
+	file.precision(6); 
+	file << statistics.stddev << std::endl;
 
 	// output standard deviation outlier amount
-	std::cout << "Number witihin 1 standard deviation: " << statistics.totalMeasurements_withinOneStandardDeviation << std::endl;
+	file << "Number witihin 1 standard deviation: " << statistics.totalMeasurements_withinOneStandardDeviation << std::endl;
 
 	for(std::vector<Measurement>::iterator inlier = inlier_data.begin(); inlier != inlier_data.end(); inlier++) {
-		std::cout << inlier->index << " , " << inlier->value << std::endl;
+		file << inlier->index << " , " << inlier->value << std::endl;
 	}
 
-	std::cout << "Number outside 1 standard deviation: " << statistics.totalMeasurements_outsideOneStandardDeviation << std::endl;
+	file << "Number outside 1 standard deviation: " << statistics.totalMeasurements_outsideOneStandardDeviation << std::endl;
 
 	for(std::vector<Measurement>::iterator outlier = outlier_data.begin(); outlier != outlier_data.end(); outlier++) {
-		std::cout << outlier->index << " , " << outlier->value << std::endl;
+		file << outlier->index << " , " << outlier->value << std::endl;
 	}
 
 }
