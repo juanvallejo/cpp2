@@ -48,7 +48,7 @@ bool parse_inputFile(std::string& filename) {
 		measurement.value = std::stoi(data.at(1), &sz);
 
 		statistics.totalMeasurements += 1.0;
-		totalValueSum += measurement.index;
+		totalValueSum += measurement.value;
 
 		all_data.push_back(measurement);
 	}
@@ -146,8 +146,8 @@ void print_statistics() {
 
 	// output mean to file stream
 	file << "Mean: ";
-	file.precision(2);
-	file.width(17);
+	file.precision(3);
+	file.width(18);
 	file << statistics.mean << std::endl;
 
 	// output standard deviation to file stream
